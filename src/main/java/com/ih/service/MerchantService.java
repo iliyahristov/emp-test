@@ -8,7 +8,13 @@ public interface MerchantService {
 
     void save(Merchant merchant);
 
+    void edit(Merchant merchant);
+
+    void delete(Merchant merchant);
+
     Merchant findByUsername(String username);
+
+    Merchant findByMerchantId(Long merchantId);
 
     List<Merchant> findAll();
 }

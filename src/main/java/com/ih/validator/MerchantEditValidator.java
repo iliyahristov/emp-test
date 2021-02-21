@@ -10,7 +10,7 @@ import com.ih.model.Merchant;
 import com.ih.service.MerchantService;
 
 @Component
-public class MerchantValidator implements Validator {
+public class MerchantEditValidator implements Validator {
     @Autowired
     private MerchantService merchantService;
 
@@ -25,19 +25,7 @@ public class MerchantValidator implements Validator {
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "username", "NotEmpty");
         if (merchant.getUsername().length() < 6 || merchant.getUsername().length() > 32) {
-            errors.rejectValue("username", "Size.merchantForm.username");
-        }
-        if (merchantService.findByUsername(merchant.getUsername()) != null) {
-            errors.rejectValue("username", "Duplicate.merchantForm.username");
-        }
-
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "NotEmpty");
-        if (merchant.getPassword().length() < 8 || merchant.getPassword().length() > 32) {
-            errors.rejectValue("password", "Size.merchantForm.password");
-        }
-
-        if (merchant.getPasswordConfirm() != null && !merchant.getPasswordConfirm().equals(merchant.getPassword())) {
-            errors.rejectValue("passwordConfirm", "Diff.merchantForm.passwordConfirm");
+            errors.rejectValue("username", "Size.merchant.username");
         }
     }
 }

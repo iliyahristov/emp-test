@@ -44,42 +44,44 @@
                             <form id="logoutForm" method="POST" action="${contextPath}/logout">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                             </form>
-                            <a onclick="document.forms['logoutForm'].submit()" href="/login">Sign out</a>
+                            <a onclick="document.forms['logoutForm'].submit()" class="sign-out">Sign out</a>
                         </li>
                     </ul>
                 </div>
             </nav>
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                    <%--<div class="container">--%>
                 <h2 class="form-heading">Transaction List</h2>
 
                 <table class="table table-striped">
                     <thead class="thead-light">
                     <tr>
                         <th scope="col">Transaction ID</th>
-                        <th scope="col">UUID</th>
+                        <th scope="col">Created on</th>
                         <th scope="col">Amount</th>
                         <th scope="col">Status</th>
                         <th scope="col">Customer e-mail</th>
                         <th scope="col">Customer phone</th>
+                        <th scope="col">Merchant name</th>
+                        <th scope="col">UUID</th>
                     </tr>
                     </thead>
                     <tbody>
 
                     <c:forEach var="trans" items="${transactionList}">
                         <tr>
-                            <td>${trans.id}</td>
-                            <td>${trans.uuid}</td>
+                            <td>${trans.transactionId}</td>
+                            <td>${trans.createdOn}</td>
                             <td>${trans.amount}</td>
                             <td>${trans.status}</td>
-                            <td>${trans.email}</td>
-                            <td>${trans.phone}</td>
+                            <td>${trans.customerEmail}</td>
+                            <td>${trans.customerPhone}</td>
+                            <td>${trans.merchant.name}</td>
+                            <td>${trans.uuid}</td>
                         </tr>
                     </c:forEach>
                     </tbody>
                 </table>
-                    <%--</div>--%>
             </main>
         </div>
     </c:if>

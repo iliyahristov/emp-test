@@ -8,7 +8,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>Merchant List</title>
+    <title>Merchant Edit</title>
 
     <link href="${contextPath}/resources/css/common.css" rel="stylesheet">
     <link href="${contextPath}/resources/assets/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -51,51 +51,53 @@
             </nav>
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
-                <c:if test="${message != null}">
-                    <div class="alert alert-success" role="alert">
-                            ${message}
-                    </div>
-                </c:if>
-                <c:if test="${error != null}">
-                    <div class="alert alert-danger" role="alert">
-                            ${error}
-                    </div>
-                </c:if>
-                <h2 class="form-heading">Merchant List</h2>
+                <h2 class="form-heading">Merchant Edit</h2>
 
-                <table class="table table-striped">
-                    <thead class="thead-light">
-                    <tr>
-                        <th scope="col">Merchant ID</th>
-                        <th scope="col">Name</th>
-                        <th scope="col">Description</th>
-                        <th scope="col">E-mail</th>
-                        <th scope="col">Status</th>
-                        <th scope="col">Transactions sum</th>
-                        <th scope="col">Actions</th>
-                    </tr>
-                    </thead>
-                    <tbody>
+                <form:form method="POST" modelAttribute="merchant" class="form-signin">
+                    <spring:bind path="username">
+                        <div class="form-group ${status.error ? 'has-error' : ''}">
+                            <form:input type="text" path="username" class="form-control" placeholder="Username"
+                                        autofocus="true"></form:input>
+                            <form:errors path="username"></form:errors>
+                        </div>
+                    </spring:bind>
 
-                    <c:forEach var="merchant" items="${merchantList}">
-                        <tr>
-                            <td>${merchant.merchantId}</td>
-                            <td>${merchant.name}</td>
-                            <td>${merchant.description}</td>
-                            <td>${merchant.email}</td>
-                            <td>${merchant.status}</td>
-                            <td>${merchant.totalTransactionSum}</td>
-                            <td>
-                                <a href="merchantEdit/${merchant.merchantId}">Edit</a>
-                                <c:if test="${merchant.transactionList != null && merchant.transactionList.size() == 0}">
-                                    |
-                                    <a href="merchantDelete/${merchant.merchantId}">Delete</a>
-                                </c:if>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+                    <spring:bind path="email">
+                        <div class="form-group ${status.error ? 'has-error' : ''}">
+                            <form:input type="text" path="email" class="form-control" placeholder="Email"
+                                        autofocus="true"></form:input>
+                            <form:errors path="email"></form:errors>
+                        </div>
+                    </spring:bind>
+
+                    <spring:bind path="name">
+                        <div class="form-group ${status.error ? 'has-error' : ''}">
+                            <form:input type="text" path="name" class="form-control" placeholder="Name"></form:input>
+                            <form:errors path="name"></form:errors>
+                        </div>
+                    </spring:bind>
+
+                    <spring:bind path="description">
+                        <div class="form-group ${status.error ? 'has-error' : ''}">
+                            <form:input type="text" path="description" class="form-control"
+                                        placeholder="Description"></form:input>
+                            <form:errors path="Description"></form:errors>
+                        </div>
+                    </spring:bind>
+
+                    <form:select class="form-control" path="role" items="${roleList}" />
+
+                    <form:select class="form-control" path="status" items="${statusList}" />
+
+                    <spring:bind path="password">
+                            <form:hidden path="password" ></form:hidden>
+                    </spring:bind>
+                    <spring:bind path="merchantId">
+                            <form:hidden path="merchantId"></form:hidden>
+                    </spring:bind>
+                    <input class="btn btn-lg btn-primary btn-block" type="submit" name="save" value="Save" />
+                    <input class="btn btn-lg btn-default btn-block" type="submit" name="cancel" value="Cancel" />
+                </form:form>
             </main>
         </div>
     </c:if>
