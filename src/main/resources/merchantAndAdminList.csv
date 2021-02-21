@@ -1,0 +1,4 @@
+description,email,name,password,role,status,username
+Developing my test software,iliyahristov@abv.bg,Iliya Hristov,P@$$1234,ADMIN,ACTIVE,iliyahristov
+No Description,tosho@abv.bg,Tosho Toshev,123467890,MERCHANT,INACTIVE,toshko
+For delete,delete@me.com,Delete Me,TestThePass1234,MERCHANT,ACTIVE,delete

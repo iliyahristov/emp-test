@@ -17,4 +17,8 @@ public interface MerchantService {
     Merchant findByMerchantId(Long merchantId);
 
     List<Merchant> findAll();
+
+    void increaseTotalSum(Merchant merchant, Integer amount);
+
+    void decreaseTotalSum(Merchant merchant, Integer amount);
 }

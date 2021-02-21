@@ -50,4 +50,20 @@ public class MerchantServiceImpl implements MerchantService {
         return merchantRepository.findAll();
     }
 
+    @Override
+    public void increaseTotalSum(Merchant merchant, Integer amount){
+        merchant.setTotalTransactionSum(
+            merchant.getTotalTransactionSum() + amount
+        );
+        merchantRepository.save(merchant);
+    }
+
+    @Override
+    public void decreaseTotalSum(Merchant merchant, Integer amount){
+        merchant.setTotalTransactionSum(
+            merchant.getTotalTransactionSum() - amount
+        );
+        merchantRepository.save(merchant);
+    }
+
 }
