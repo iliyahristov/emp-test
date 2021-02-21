@@ -1,6 +1,7 @@
 package com.ih.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -37,21 +39,24 @@ public class Merchant implements Serializable {
     @Enumerated(EnumType.STRING)
     private MerchantStatus status;
 
-    @Max(100)
+    @Size(max = 100, message = "Name must be under 225 characters")
     private String name;
 
-    @Max(255)
+    @Size(max = 255, message = "Description must be under 225 characters")
     private String description;
 
-    @Email
+    @Email(message = "The mail must be valid e-mail")
     private String email;
 
-    @Column(name = "total_transaction_sum")
+    @Column(name = "total_transaction_sum",columnDefinition = "integer default 0")
     private Integer totalTransactionSum;
 
     private String username;
 
     private String password;
+
+    @OneToMany(mappedBy = "merchant")
+    private List<Transaction> transactionList;
 
     @Transient
     private String passwordConfirm;
@@ -134,5 +139,13 @@ public class Merchant implements Serializable {
 
     public void setPasswordConfirm(String passwordConfirm) {
         this.passwordConfirm = passwordConfirm;
+    }
+
+    public List<Transaction> getTransactionList() {
+        return transactionList;
+    }
+
+    public void setTransactionList(List<Transaction> transactionList) {
+        this.transactionList = transactionList;
     }
 }

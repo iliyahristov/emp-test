@@ -26,12 +26,28 @@ public class MerchantServiceImpl implements MerchantService {
     }
 
     @Override
+    public void edit(Merchant merchant){
+        merchantRepository.save(merchant);
+    }
+
+    @Override
+    public void delete(Merchant merchant){
+        merchantRepository.delete(merchant);
+    }
+
+    @Override
     public Merchant findByUsername(String username) {
         return merchantRepository.findByUsername(username);
+    }
+
+    @Override
+    public Merchant findByMerchantId(Long merchantId){
+        return merchantRepository.findByMerchantId(merchantId);
     }
 
     @Override
     public List<Merchant> findAll() {
         return merchantRepository.findAll();
     }
+
 }
