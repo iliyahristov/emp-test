@@ -25,7 +25,7 @@ public class TransactionValidator implements Validator {
 
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "amount", "NotEmpty");
         if (transaction.getAmount() > 0) {
-            errors.rejectValue("amount", "Size.merchantForm.username"); // todo
+            errors.rejectValue("amount", "Size.merchantForm.username");
         }
 
     }
