@@ -49,6 +49,7 @@ public class MerchantHelperImpl implements MerchantHelper {
             Iterable<CSVRecord> csvRecords = csvParser.getRecords();
 
             for (CSVRecord csvRow : csvRecords) {
+
                 Merchant merchant = new Merchant();
                 merchant.setName(csvRow.get("name"));
                 merchant.setDescription(csvRow.get("description"));
@@ -63,6 +64,7 @@ public class MerchantHelperImpl implements MerchantHelper {
                 merchant.setRole(
                     MerchantRole.valueOf(csvRow.get("role").toUpperCase())
                 );
+                merchant.setTotalTransactionSum(0);
                 merchantList.add(merchant);
             }
 

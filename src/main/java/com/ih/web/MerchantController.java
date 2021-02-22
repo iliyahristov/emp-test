@@ -83,7 +83,7 @@ public class MerchantController {
         return "redirect:/welcome";
     }
 
-    @PostMapping("/upload")
+    @PostMapping("/api/merchant/upload")
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
         String message = "";
 

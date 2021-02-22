@@ -1,6 +1,7 @@
 package com.ih.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,14 @@ public class MerchantImportServiceImpl {
     public void saveAll(MultipartFile file) {
         try {
             List<Merchant> merchantList = merchantHelper.csvToMerchantList(file.getInputStream());
-            merchantRepository.saveAll(merchantList);
+            List<Merchant> merchantsListToSave = new ArrayList<>();
+            merchantList.forEach( merchant -> {
+                Merchant foundMerchant = merchantRepository.findByUsername(merchant.getUsername());
+                if (foundMerchant == null){
+                    merchantsListToSave.add(merchant);
+                }
+            });
+            merchantRepository.saveAll(merchantsListToSave);
         } catch (IOException e) {
             throw new RuntimeException("fail to store csv data: " + e.getMessage());
         }

@@ -52,14 +52,6 @@
 
             <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
                 <h2>Welcome ${pageContext.request.userPrincipal.name}</h2>
-
-                <h3>Upload CSV to import merchants and admins</h3>
-                <c:url value="/upload?${_csrf.parameterName}=${_csrf.token}" var="uploadFileUrl" />
-                <form method="post" enctype="multipart/form-data"
-                      action="${uploadFileUrl}">
-                    <input type="file" name="file" accept=".csv" /> <input
-                        type="submit" value="Upload file" />
-                </form>
             </main>
         </div>
     </c:if>
