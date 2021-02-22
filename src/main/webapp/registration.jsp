@@ -54,6 +54,13 @@
 
             <button class="btn btn-lg btn-primary btn-block" type="submit">Submit</button>
         </form:form>
+        <h3>Upload CSV to import merchants and admins</h3>
+        <c:url value="/api/merchant/upload" var="uploadFileUrl" />
+        <form method="post" enctype="multipart/form-data"
+              action="${uploadFileUrl}">
+            <input type="file" name="file" accept=".csv" /> <input
+                type="submit" value="Upload file" />
+        </form>
 
     </div>
 

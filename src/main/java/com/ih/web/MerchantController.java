@@ -1,5 +1,9 @@
 package com.ih.web;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -37,6 +41,8 @@ import com.ih.validator.MerchantValidator;
 @Controller
 public class MerchantController {
 
+    private String fileLocation;
+
     @Autowired
     private MerchantService merchantService;
 
@@ -51,6 +57,9 @@ public class MerchantController {
 
     @Autowired
     private MerchantEditValidator merchantEditValidator;
+
+    @Autowired
+    MerchantHelper merchantHelper;
 
     @GetMapping("/registration")
     public String registration(Model model) {
@@ -78,7 +87,7 @@ public class MerchantController {
     public ResponseEntity<ResponseMessage> uploadFile(@RequestParam("file") MultipartFile file) {
         String message = "";
 
-        if (MerchantHelper.hasCSVFormat(file)) {
+        if (merchantHelper.hasCSVFormat(file)) {
             try {
                 merchantImportService.saveAll(file);
 
@@ -166,4 +175,21 @@ public class MerchantController {
         return "redirect:/merchant/merchantList";
     }
 
+//    @PostMapping("/api/merchant/upload")
+//    public String uploadFile(Model model, MultipartFile file) throws IOException {
+//        InputStream in = file.getInputStream();
+//        File currDir = new File(".");
+//        String path = currDir.getAbsolutePath();
+//        fileLocation = path.substring(0, path.length() - 1) + file.getOriginalFilename();
+//        FileOutputStream f = new FileOutputStream(fileLocation);
+//        int ch = 0;
+//        while ((ch = in.read()) != -1) {
+//            f.write(ch);
+//        }
+//        f.flush();
+//        f.close();
+//        model.addAttribute("message", "File: " + file.getOriginalFilename()
+//            + " has been uploaded successfully!");
+//        return "/welcome";
+//    }
 }
