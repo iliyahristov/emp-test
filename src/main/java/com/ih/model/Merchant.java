@@ -45,12 +45,14 @@ public class Merchant implements Serializable {
     @Size(max = 255, message = "Description must be under 225 characters")
     private String description;
 
+    @Column(unique=true)
     @Email(message = "The mail must be valid e-mail")
     private String email;
 
     @Column(name = "total_transaction_sum",columnDefinition = "integer default 0")
     private Integer totalTransactionSum;
 
+    @Column(unique=true)
     private String username;
 
     private String password;

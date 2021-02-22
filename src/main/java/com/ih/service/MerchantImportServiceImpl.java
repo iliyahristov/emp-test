@@ -17,9 +17,12 @@ public class MerchantImportServiceImpl {
     @Autowired
     private MerchantRepository merchantRepository;
 
+    @Autowired
+    private MerchantHelper merchantHelper;
+
     public void saveAll(MultipartFile file) {
         try {
-            List<Merchant> merchantList = MerchantHelper.csvToMerchantList(file.getInputStream());
+            List<Merchant> merchantList = merchantHelper.csvToMerchantList(file.getInputStream());
             merchantRepository.saveAll(merchantList);
         } catch (IOException e) {
             throw new RuntimeException("fail to store csv data: " + e.getMessage());
