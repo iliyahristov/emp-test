@@ -12,6 +12,8 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -40,8 +42,6 @@ import com.ih.validator.MerchantValidator;
 
 @Controller
 public class MerchantController {
-
-    private String fileLocation;
 
     @Autowired
     private MerchantService merchantService;
@@ -123,7 +123,7 @@ public class MerchantController {
 
     @GetMapping("/merchant/merchantList")
     public String merchantList(Model model) {
-        List<Merchant> merchantList = merchantService.findAll();
+        List<Merchant> merchantList = merchantService.findAll(); // todo : must create logic for loged in merchant
         model.addAttribute("merchantList", merchantList);
 
         return "/merchant/merchantList";
@@ -175,21 +175,24 @@ public class MerchantController {
         return "redirect:/merchant/merchantList";
     }
 
-//    @PostMapping("/api/merchant/upload")
-//    public String uploadFile(Model model, MultipartFile file) throws IOException {
-//        InputStream in = file.getInputStream();
-//        File currDir = new File(".");
-//        String path = currDir.getAbsolutePath();
-//        fileLocation = path.substring(0, path.length() - 1) + file.getOriginalFilename();
-//        FileOutputStream f = new FileOutputStream(fileLocation);
-//        int ch = 0;
-//        while ((ch = in.read()) != -1) {
-//            f.write(ch);
-//        }
-//        f.flush();
-//        f.close();
-//        model.addAttribute("message", "File: " + file.getOriginalFilename()
-//            + " has been uploaded successfully!");
-//        return "/welcome";
-//    }
+    protected Merchant findLoggedUser(){
+
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        String username = "";
+        if (principal instanceof UserDetails) {
+            username = ((UserDetails)principal).getUsername();
+        } else {
+            username = principal.toString();
+        }
+
+        return merchantService.findByUsername(username);
+    }
+
+    protected void increaseTotalSum(Merchant merchant, Integer amount){
+        merchantService.increaseTotalSum(merchant,amount);
+    }
+
+    protected void decreaseTotalSum(Merchant merchant, Integer amount){
+        merchantService.decreaseTotalSum(merchant,amount);
+    }
 }

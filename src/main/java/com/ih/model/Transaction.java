@@ -1,5 +1,6 @@
 package com.ih.model;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
@@ -22,6 +23,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 
 import com.ih.enums.TransactionStatus;
 
@@ -29,12 +31,14 @@ import com.ih.enums.TransactionStatus;
 @Entity
 @Table(name = "transaction")
 @DiscriminatorColumn(name = "TRANS_TYPE")
-public class Transaction {
+public class Transaction implements Serializable {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="transaction_id")
     private Long transactionId;
 
+    @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}",
+    message = "UUID has wrong format")
     private UUID uuid;
 
     @Column(name = "created_on")
@@ -46,16 +50,18 @@ public class Transaction {
     @Enumerated(EnumType.STRING)
     private TransactionStatus status;
 
-    @Email @NotEmpty
+    @NotEmpty
+    @Email(message = "Please provide valid e-mail")
     @Column(name = "customer_email")
     private String customerEmail;
 
     @Column(name = "customer_phone")
     private String customerPhone;
 
-    private Integer reference_id;
+    @Column(name = "reference_id")
+    private Integer referenceId;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     @JoinColumn(name = "belongs_to", referencedColumnName = "transaction_id")
     private Transaction belongsTo;
 
@@ -122,12 +128,12 @@ public class Transaction {
         this.customerPhone = customerPhone;
     }
 
-    public Integer getReference_id() {
-        return reference_id;
+    public Integer getReferenceId() {
+        return referenceId;
     }
 
-    public void setReference_id(Integer reference_id) {
-        this.reference_id = reference_id;
+    public void setReferenceId(Integer referenceId) {
+        this.referenceId = referenceId;
     }
 
     public Transaction getBelongsTo() {

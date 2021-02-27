@@ -27,10 +27,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
+            .csrf().disable()
+            .httpBasic()
+            .and().authorizeRequests().antMatchers( "/api/**").authenticated() //.hasRole("merchant")
+            .and()
             .authorizeRequests()
-                .antMatchers("/resources/**", "/api/**", "/registration").permitAll()
+                .antMatchers("/resources/**", "/registration").permitAll() //"/api/**",
                 .anyRequest().authenticated()
-                .and().csrf().disable()
+                .and()
             .formLogin()
                 .loginPage("/login")
                 .permitAll()

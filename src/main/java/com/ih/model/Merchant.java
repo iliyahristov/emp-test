@@ -46,7 +46,7 @@ public class Merchant implements Serializable {
     private String description;
 
     @Column(unique=true)
-    @Email(message = "The mail must be valid e-mail")
+    @Email(message = "Please provide valid e-mail")
     private String email;
 
     @Column(name = "total_transaction_sum",columnDefinition = "integer default 0")

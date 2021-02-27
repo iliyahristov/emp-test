@@ -1,6 +1,7 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="security" uri="http://www.springframework.org/security/tags" %>
 
 <c:set var="contextPath" value="${pageContext.request.contextPath}"/>
 
@@ -21,7 +22,7 @@
         <div class="row">
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
                 <div class="position-sticky pt-3">
-                    <ul class="nav flex-column">
+                    <se class="nav flex-column">
                         <li class="nav-item">
                             <a class="nav-link" aria-current="page" href="${contextPath}/welcome">
                                 <span data-feather="home"></span>
@@ -34,12 +35,14 @@
                                 Transactions
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="${contextPath}/merchant/merchantList">
-                                <span data-feather="users"></span>
-                                Merchants
-                            </a>
-                        </li>
+                        <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
+                            <li class="nav-item">
+                                <a class="nav-link" href="${contextPath}/merchant/merchantList">
+                                    <span data-feather="users"></span>
+                                    Merchants
+                                </a>
+                            </li>
+                        </c:if>
                         <li class="nav-item">
                             <form id="logoutForm" method="POST" action="${contextPath}/logout">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -72,7 +75,7 @@
                         <tr>
                             <td>${trans.transactionId}</td>
                             <td>${trans.createdOn}</td>
-                            <td>${trans.amount}</td>
+                            <td>${trans.amount/100}</td>
                             <td>${trans.status}</td>
                             <td>${trans.customerEmail}</td>
                             <td>${trans.customerPhone}</td>
