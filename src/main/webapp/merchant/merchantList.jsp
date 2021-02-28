@@ -17,7 +17,7 @@
 
 <body>
 <div class="container-fluid">
-    <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
+    <c:if test="${isAdmin}">
         <div class="row">
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
                 <div class="position-sticky pt-3">
@@ -34,7 +34,7 @@
                                 Transactions
                             </a>
                         </li>
-                        <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
+                        <c:if test="${isAdmin}">
                             <li class="nav-item">
                                 <a class="nav-link" href="${contextPath}/merchant/merchantList">
                                     <span data-feather="users"></span>

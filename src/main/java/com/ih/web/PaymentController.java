@@ -53,7 +53,7 @@ public class PaymentController {
             transactionList.stream()
             .filter(transaction -> transaction instanceof TransactionAuthorize)
             .collect(Collectors.toList()));
-
+        model.addAttribute("isAdmin", merchantController.isAdmin());
         return "/transaction/transactionList";
     }
 

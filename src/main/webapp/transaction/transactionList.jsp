@@ -35,7 +35,7 @@
                                 Transactions
                             </a>
                         </li>
-                        <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
+                        <c:if test="${isAdmin}">
                             <li class="nav-item">
                                 <a class="nav-link" href="${contextPath}/merchant/merchantList">
                                     <span data-feather="users"></span>
