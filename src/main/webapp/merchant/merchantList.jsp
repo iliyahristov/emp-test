@@ -17,7 +17,7 @@
 
 <body>
 <div class="container-fluid">
-    <c:if test="${pageContext.request.userPrincipal.name != null}">
+    <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
         <div class="row">
             <nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-light sidebar">
                 <div class="position-sticky pt-3">
@@ -34,12 +34,14 @@
                                 Transactions
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link active" href="${contextPath}/merchant/merchantList">
-                                <span data-feather="users"></span>
-                                Merchants
-                            </a>
-                        </li>
+                        <c:if test="${pageContext.request.isUserInRole('ADMIN')}">
+                            <li class="nav-item">
+                                <a class="nav-link" href="${contextPath}/merchant/merchantList">
+                                    <span data-feather="users"></span>
+                                    Merchants
+                                </a>
+                            </li>
+                        </c:if>
                         <li class="nav-item">
                             <form id="logoutForm" method="POST" action="${contextPath}/logout">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>

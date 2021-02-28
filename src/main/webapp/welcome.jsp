@@ -34,12 +34,14 @@
                                 Transactions
                             </a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="${contextPath}/merchant/merchantList">
-                                <span data-feather="users"></span>
-                                Merchants
-                            </a>
-                        </li>
+                        <c:if test="${pageContext.request.isUserInRole(MerchantRole.ADMIN)}">
+                            <li class="nav-item">
+                                <a class="nav-link" href="${contextPath}/merchant/merchantList">
+                                    <span data-feather="users"></span>
+                                    Merchants
+                                </a>
+                            </li>
+                        </c:if>
                         <li class="nav-item">
                             <form id="logoutForm" method="POST" action="${contextPath}/logout">
                                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
