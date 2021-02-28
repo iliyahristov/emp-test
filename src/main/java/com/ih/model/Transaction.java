@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
@@ -37,8 +38,8 @@ public class Transaction implements Serializable {
     @Column(name="transaction_id")
     private Long transactionId;
 
-    @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}",
-    message = "UUID has wrong format")
+//    @Pattern(regexp = "^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{12}",
+//    message = "UUID has wrong format")
     private UUID uuid;
 
     @Column(name = "created_on")
@@ -65,10 +66,10 @@ public class Transaction implements Serializable {
     @JoinColumn(name = "belongs_to", referencedColumnName = "transaction_id")
     private Transaction belongsTo;
 
-    @OneToMany(mappedBy = "belongsTo")
+    @OneToMany(mappedBy = "belongsTo", cascade = CascadeType.ALL)
     private List<Transaction> transactionList;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.MERGE)
     @JoinColumn(name = "merchant_id", referencedColumnName = "merchant_id")
     private Merchant merchant;
 

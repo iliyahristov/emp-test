@@ -20,6 +20,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.ih.enums.MerchantRole;
@@ -49,7 +50,8 @@ public class Merchant implements Serializable {
     @Email(message = "Please provide valid e-mail")
     private String email;
 
-    @Column(name = "total_transaction_sum",columnDefinition = "integer default 0")
+    @NotNull
+    @Column(name = "total_transaction_sum",columnDefinition = "int(11) NOT NULL DEFAULT 0")
     private Integer totalTransactionSum;
 
     @Column(unique=true)

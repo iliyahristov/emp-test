@@ -67,6 +67,7 @@
                         <th scope="col">Customer phone</th>
                         <th scope="col">Merchant name</th>
                         <th scope="col">UUID</th>
+                        <th scope="col">Reference</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -81,6 +82,7 @@
                             <td>${trans.customerPhone}</td>
                             <td>${trans.merchant.name}</td>
                             <td>${trans.uuid}</td>
+                            <td>${trans.referenceId}</td>
                         </tr>
                     </c:forEach>
                     </tbody>

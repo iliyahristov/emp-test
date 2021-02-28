@@ -1,6 +1,5 @@
 package com.ih.validator;
 
-import java.lang.annotation.Documented;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -14,7 +13,6 @@ import javax.validation.constraints.Pattern;
 @Constraint(validatedBy={})
 @Target({ ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER })
 @Retention(RetentionPolicy.RUNTIME)
-@Documented
 public @interface UUID {
 
     /**

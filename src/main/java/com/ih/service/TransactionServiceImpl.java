@@ -27,6 +27,9 @@ public class TransactionServiceImpl implements TransactionService {
         transaction.setUuid(Generators.timeBasedGenerator().generate());
         transactionRepository.save(transaction);
     }
+    public void update(Transaction transaction) {
+        transactionRepository.save(transaction);
+    }
 
     @Override
     public void delete(Transaction transaction){
@@ -36,6 +39,11 @@ public class TransactionServiceImpl implements TransactionService {
     @Override
     public Transaction findByUuid(UUID uuid) {
         return transactionRepository.findByUuid(uuid);
+    }
+
+    @Override
+    public TransactionAuthorize findByReferenceId(Integer referenceId) {
+        return transactionRepository.findByReferenceId(referenceId);
     }
 
     @Override
