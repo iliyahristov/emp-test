@@ -118,6 +118,7 @@ public class MerchantController {
 
     @GetMapping({"/", "/welcome"})
     public String welcome(Model model) {
+        model.addAttribute("isAdmin", isAdmin());
         return "welcome";
     }
 
@@ -125,6 +126,7 @@ public class MerchantController {
     public String merchantList(Model model) {
         List<Merchant> merchantList = merchantService.findAll(); // todo : must create logic for loged in merchant
         model.addAttribute("merchantList", merchantList);
+        model.addAttribute("isAdmin", isAdmin());
 
         return "/merchant/merchantList";
     }
@@ -194,5 +196,9 @@ public class MerchantController {
 
     protected void decreaseTotalSum(Merchant merchant, Integer amount){
         merchantService.decreaseTotalSum(merchant,amount);
+    }
+
+    public boolean isAdmin(){
+        return findLoggedUser().getRole().equals(MerchantRole.ADMIN);
     }
 }
